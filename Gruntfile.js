@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-concat');
@@ -13,15 +15,15 @@ module.exports = function(grunt) {
       },
       dist: {
         src: 'src/**/*.js',
-        dest: 'dist/<%= pkg.name %>.js',
-        header: 'Backbone.Forma v.<%= pkg.version %>'
+        dest: 'dist/<%= pkg.name %>-temp.js',
+        banner: 'Backbone.Forma'
       }
     },
 
     uglify: {
       development: {
         files: {
-          '../tel100/public/js/vendor/<%= pkg.name %>.js': [ '<%= concat.dist.dest %>' ]
+          'dist/<%= pkg.name %>.js': [ '<%= concat.dist.dest %>' ]
         },
         options: {
           beautify: true,
@@ -31,13 +33,18 @@ module.exports = function(grunt) {
       }
     },
 
-    watch: {
-      scripts: {
-        files: ['src/**/*.js'],
-        tasks: ['concat', 'uglify']
-      }
-    }
+    // watch: {
+    //   scripts: {
+    //     files: ['src/**/*.js'],
+    //     tasks: ['concat', 'uglify']
+    //   }
+    // }
   });
 
-  //grunt.registerTask('default', 'concat');
+  grunt.registerTask('clear-dist', function() {
+    var path = __dirname + '/' + grunt.config.get('concat.dist.dest');
+    fs.unlinkSync(path);
+  });
+
+  grunt.registerTask('default', ['concat', 'uglify', 'clear-dist']); 
 };
