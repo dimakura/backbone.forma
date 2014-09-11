@@ -6,7 +6,9 @@
         return FormaError.prototype = new Error(), FormaError.prototype.constructor = FormaError, 
         FormaError;
     }(), exports.Form = function() {
-        var Form = function() {};
+        var Form = function(options) {
+            "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.title = options);
+        };
         return Form;
     }(), exports.html = function() {
         var html = {};
