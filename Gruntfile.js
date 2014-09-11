@@ -33,12 +33,12 @@ module.exports = function(grunt) {
       }
     },
 
-    // watch: {
-    //   scripts: {
-    //     files: ['src/**/*.js'],
-    //     tasks: ['concat', 'uglify']
-    //   }
-    // }
+    watch: {
+      scripts: {
+        files: ['src/**/*.js'],
+        tasks: ['default']
+      }
+    }
   });
 
   grunt.registerTask('clear-dist', function() {
