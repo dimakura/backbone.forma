@@ -9,11 +9,11 @@
     <div class="container">
       <div id="main"></div>
     </div>
-    <script type="text/javascript" src="js/vendor/jquery.js"></script>
-    <script type="text/javascript" src="js/vendor/underscore.js"></script>
-    <script type="text/javascript" src="js/vendor/backbone.js"></script>
-    <script type="text/javascript" src="js/vendor/backbone.marionette.js"></script>
-    <script type="text/javascript" src="../dist/backbone.forma.js"></script>
+    <script type="text/javascript" src="../lib/jquery.js"></script>
+    <script type="text/javascript" src="../lib/underscore.js"></script>
+    <script type="text/javascript" src="../lib/backbone.js"></script>
+    <script type="text/javascript" src="../lib/backbone.marionette.js"></script>
+    <script type="text/javascript" src="../backbone.forma.js"></script>
 
     <script type="template" id="home-template">
       <h1 class="page-header">Home Page</h1>
@@ -34,11 +34,6 @@
         console.log('MyApp started');
         var homeView = new HomeView();
         MyApp.mainRegion.show(homeView);
-
-// testting forma.html.Tag
-var pTag = new forma.html.Tag('p', {id:'mytext', class:['text-muted','text-center'], style: {size: '12px;'}}, "some text");
-console.log(pTag.toHtml());
-
       });
 
       MyApp.start();

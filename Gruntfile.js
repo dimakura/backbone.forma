@@ -15,7 +15,7 @@ module.exports = function(grunt) {
       },
       dist: {
         src: 'src/**/*.js',
-        dest: 'dist/<%= pkg.name %>-temp.js',
+        dest: './<%= pkg.name %>-temp.js',
         banner: 'Backbone.Forma'
       }
     },
@@ -23,7 +23,7 @@ module.exports = function(grunt) {
     uglify: {
       development: {
         files: {
-          'dist/<%= pkg.name %>.js': [ '<%= concat.dist.dest %>' ]
+          './<%= pkg.name %>.js': [ '<%= concat.dist.dest %>' ]
         },
         options: {
           beautify: true,
