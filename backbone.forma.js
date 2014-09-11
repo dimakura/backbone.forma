@@ -1,10 +1,11 @@
 !function(exports, global) {
-    global.forma = exports;
-    var FormaError = function(message) {
-        this.name = "FormaError", this.message = message, this.stack = new Error().stack;
-    };
-    FormaError.prototype = new Error(), FormaError.prototype.constructor = FormaError, 
-    exports.FormaError = FormaError, exports.Form = function() {
+    global.forma = exports, exports.Error = function() {
+        var FormaError = function(message) {
+            this.name = "FormaError", this.message = message, this.stack = new Error().stack;
+        };
+        return FormaError.prototype = new Error(), FormaError.prototype.constructor = FormaError, 
+        FormaError;
+    }(), exports.Form = function() {
         var Form = function() {};
         return Form;
     }(), exports.html = function() {

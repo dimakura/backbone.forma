@@ -1,10 +1,14 @@
-var FormaError = function(message) {
-  this.name = 'FormaError';
-  this.message = message;
-  this.stack = (new Error()).stack;
-};
+exports.Error = (function() {
 
-FormaError.prototype = new Error();
-FormaError.prototype.constructor = FormaError;
+  var FormaError = function(message) {
+    this.name = 'FormaError';
+    this.message = message;
+    this.stack = (new Error()).stack;
+  };
 
-exports.FormaError = FormaError;
+  FormaError.prototype = new Error();
+  FormaError.prototype.constructor = FormaError;
+
+  return FormaError;
+
+})();
