@@ -1,9 +1,31 @@
 !function(exports, global) {
-    global.forma = exports, exports.DefaultIconEngine = {
-        generateIcon: function(name) {
-            return new forma.html.Tag("i", {
-                "class": [ "fa", "fa-" + name ]
-            }).toHtml();
+    global.forma = exports, exports.DefaultFormEngine = function() {
+        var generateTitleTag = function() {
+            var title = this.form.title, icon = this.form.icon;
+            if (title) {
+                var iconTag, children = [];
+                return icon && (iconTag = this.iconEngine.generateIconTag(icon, {
+                    "class": "forma-title-icon"
+                }), children.push(iconTag)), title && children.push(new exports.html.Tag("span", {
+                    "class": "forma-title-text"
+                }, title)), new exports.html.Tag("div", {
+                    "class": "forma-title"
+                }, children);
+            }
+        }, Engine = function() {};
+        return Engine.prototype.generateFormTag = function(form) {
+            this.form = form, this.iconEngine = exports.iconEngine;
+            var children = [ generateTitleTag.apply(this) ];
+            return new exports.html.Tag("div", {
+                "class": "forma-form"
+            }, children);
+        }, Engine;
+    }(), exports.FormEngine = exports.DefaultFormEngine, exports.DefaultIconEngine = {
+        generateIconTag: function(name, opts) {
+            var classNames = [ "fa", "fa-" + name ];
+            return opts && opts.class && classNames.push(opts.class), new forma.html.Tag("i", {
+                "class": classNames
+            });
         }
     }, exports.iconEngine = exports.DefaultIconEngine, exports.Error = function() {
         var FormaError = function(message) {
