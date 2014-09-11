@@ -38,6 +38,14 @@
             "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.title = options);
         };
         return Form;
+    }(), exports.FormView = function() {
+        var FormView = Backbone.Marionette.ItemView.extend({
+            initialize: function(options) {
+                if (this.form = options && options.form, !this.form) throw new exports.Error("form not defined");
+                console.log(this.form);
+            }
+        });
+        return FormView;
     }(), exports.html = function() {
         var html = {};
         return html.Tag = function() {
