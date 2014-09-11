@@ -42,7 +42,10 @@
         var FormView = Backbone.Marionette.ItemView.extend({
             initialize: function(options) {
                 if (this.form = options && options.form, !this.form) throw new exports.Error("form not defined");
-                console.log(this.form);
+            },
+            getTemplate: function() {
+                var engine = new forma.FormEngine(), template = engine.generateFormTag(this.form).toHtml();
+                return _.template(template);
             }
         });
         return FormView;

@@ -7,4 +7,10 @@ QUnit.test( "basic form view", function( assert ) {
 
   assert.ok(formView, 'form view defined');
   assert.equal(formView.form, form, 'form should be defined in formView');
+
+  formView.$el = $('#playground');
+  formView.render();
+
+  var $form = $('#playground .forma-form');
+  assert.equal($form.length, 1);
 });
