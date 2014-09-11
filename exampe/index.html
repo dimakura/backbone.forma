@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Backbone.Forma</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div id="main"></div>
+    </div>
+    <script type="text/javascript" src="js/vendor/jquery.js"></script>
+    <script type="text/javascript" src="js/vendor/underscore.js"></script>
+    <script type="text/javascript" src="js/vendor/backbone.js"></script>
+    <script type="text/javascript" src="js/vendor/backbone.marionette.js"></script>
+    <script type="text/javascript" src="../dist/backbone.forma.js"></script>
+
+    <script type="template" id="home-template">
+      <h1 class="page-header">Home Page</h1>
+      <p>This is a test page</p>
+    </script>
+
+    <script type="text/javascript">
+      var MyApp = new Backbone.Marionette.Application();
+      MyApp.addRegions({
+        mainRegion: '#main'
+      });
+
+      var HomeView = Backbone.Marionette.ItemView.extend({
+        template: "#home-template"
+      });
+
+      MyApp.on('start', function() {
+        console.log('MyApp started');
+        var homeView = new HomeView();
+        MyApp.mainRegion.show(homeView);
+      });
+
+      MyApp.start();
+    </script>
+  </body>
+</html>
