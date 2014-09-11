@@ -34,6 +34,11 @@
         console.log('MyApp started');
         var homeView = new HomeView();
         MyApp.mainRegion.show(homeView);
+
+// testting forma.html.Tag
+var pTag = new forma.html.Tag('p', {id:'mytext', class:['text-muted','text-center'], style: {size: '12px;'}}, "some text");
+console.log(pTag.toHtml());
+
       });
 
       MyApp.start();

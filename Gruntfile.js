@@ -28,7 +28,7 @@ module.exports = function(grunt) {
         options: {
           beautify: true,
           mangle: false,
-          wrap: 'Forma'
+          wrap: 'forma'
         }
       }
     },
