@@ -59,7 +59,11 @@ exports.html = (function() {
         if (typeof this.children === 'string') {
           return this.children;
         } else if (this.children instanceof Array) {
-          // TODO:
+          return this.children.map(function(child) {
+            if (typeof child === 'string') { return child; }
+            else if (typeof child.toHtml === 'function') { return child.toHtml(); }
+            else { return child.toString(); }
+          }).join('');
         }
       } else {
         return '';

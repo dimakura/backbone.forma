@@ -33,7 +33,9 @@
             }, tagEnd = function() {
                 return [ "</", this.name, ">" ].join("");
             }, tagBody = function() {
-                return this.children ? "string" == typeof this.children ? this.children : void (this.children instanceof Array) : "";
+                return this.children ? "string" == typeof this.children ? this.children : this.children instanceof Array ? this.children.map(function(child) {
+                    return "string" == typeof child ? child : "function" == typeof child.toHtml ? child.toHtml() : child.toString();
+                }).join("") : void 0 : "";
             };
             return Tag.prototype.toHtml = function() {
                 return [ tagStart.apply(this), tagBody.apply(this), tagEnd.apply(this) ].join("");
