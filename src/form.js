@@ -1,5 +1,9 @@
-var Form = function(fields) {
-  this.fields = fields || [];
-};
+exports.Form = (function() {
 
-exports.Form = Form;
+  var Form = function() {
+    // TODO:
+  };
+
+  return Form;
+
+})();
