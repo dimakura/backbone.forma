@@ -2,8 +2,11 @@
  * Icon engine can be overriden in `forma.iconEngine`.
  */
 exports.DefaultIconEngine = {
-  generateIcon: function(name) {
-    return new forma.html.Tag('i', {class: ['fa', 'fa-'+name]}).toHtml();
+  generateIconTag: function(name, opts) {
+    var classNames = ['fa', 'fa-' + name];
+    if(opts && opts.class) { classNames.push(opts.class); }
+
+    return new forma.html.Tag('i', {class: classNames});
   }
 };
 
