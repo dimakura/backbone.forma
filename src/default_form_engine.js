@@ -1,5 +1,5 @@
 /**
- * Form engine can be overriden in `forma.formEngine`.
+ * Form engine can be overriden in `forma.FormEngine`, it should be accessible via `new forma.FormEngine()`.
  */
 exports.DefaultFormEngine = (function() {
 
