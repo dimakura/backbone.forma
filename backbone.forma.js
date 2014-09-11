@@ -1,17 +1,17 @@
 !function(exports, global) {
-    global.forma = exports, exports.Error = function() {
-        var FormaError = function(message) {
-            this.name = "FormaError", this.message = message, this.stack = new Error().stack;
-        };
-        return FormaError.prototype = new Error(), FormaError.prototype.constructor = FormaError, 
-        FormaError;
-    }(), exports.FontAwesomeIconEngine = {
+    global.forma = exports, exports.DefaultIconEngine = {
         generateIcon: function(name) {
             return new forma.html.Tag("i", {
                 "class": [ "fa", "fa-" + name ]
             }).toHtml();
         }
-    }, exports.iconEngine = exports.FontAwesomeIconEngine, exports.Form = function() {
+    }, exports.iconEngine = exports.DefaultIconEngine, exports.Error = function() {
+        var FormaError = function(message) {
+            this.name = "FormaError", this.message = message, this.stack = new Error().stack;
+        };
+        return FormaError.prototype = new Error(), FormaError.prototype.constructor = FormaError, 
+        FormaError;
+    }(), exports.Form = function() {
         var Form = function(options) {
             "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.title = options);
         };
