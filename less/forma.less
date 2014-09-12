@@ -1,0 +1,25 @@
+@import 'colors.less';
+@import 'sizes.less';
+
+@default-border-params: @border-width solid @border-color;
+
+.forma-form {
+  border-bottom: @default-border-params;
+  .forma-title {
+    border-top: @default-border-params;
+    border-left: @default-border-params;
+    border-right: @default-border-params;
+    cursor: pointer;
+    padding: 4px 8px;
+    .forma-title-icon {
+      // TODO: http://blog.mozilla.org/webdev/2009/02/20/cross-browser-inline-block/
+      display: inline-block;
+      margin: 0 8px 0 0;
+      font-size: @title-font-size;
+    }
+    .forma-title-text {
+      font-size: @title-font-size;
+      font-weight: bold;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.forma-form {
+  border-bottom: 1px solid #cccccc;
+}
+.forma-form .forma-title {
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+.forma-form .forma-title .forma-title-icon {
+  display: inline-block;
+  margin: 0 8px 0 0;
+  font-size: 18px;
+}
+.forma-form .forma-title .forma-title-text {
+  font-size: 18px;
+  font-weight: bold;
+}
