@@ -14,4 +14,5 @@ QUnit.test( "text field with complex attributes", function( assert ) {
   assert.equal(textField.required, true);
   assert.equal(textField.label, 'Username');
   assert.equal(textField.hidden, false);
+  assert.ok(textField.id);
 });

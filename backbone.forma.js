@@ -27,7 +27,27 @@
                 "class": classNames
             });
         }
-    }, exports.iconEngine = exports.DefaultIconEngine, exports.Error = function() {
+    }, exports.iconEngine = exports.DefaultIconEngine, exports.DefaultTextFieldEngine = function() {
+        var generateLabelTag = function() {
+            return this.field.label ? new exports.html.Tag("label", {
+                "for": this.field.id
+            }, this.field.label) : void 0;
+        }, generateInputField = function() {
+            var type = this.field.hidden ? "password" : this.field.email ? "email" : "text";
+            return new exports.html.Tag("input", {
+                id: this.field.id,
+                type: type,
+                value: "<%-" + this.field.name + "%>"
+            });
+        }, Engine = function() {};
+        return Engine.prototype.generateFieldTag = function(field) {
+            this.field = field, this.iconEngine = exports.iconEngine;
+            var children = [ generateLabelTag.apply(this), generateInputField.apply(this) ];
+            return new exports.html.Tag("div", {
+                "class": [ "forma-field", "form-group" ]
+            }, children);
+        }, Engine;
+    }(), exports.TextFieldEngine = exports.DefaultTextFieldEngine, exports.Error = function() {
         var FormaError = function(message) {
             this.name = "FormaError", this.message = message, this.stack = new Error().stack;
         };
@@ -77,17 +97,20 @@
             }, tagEnd = function() {
                 return [ "</", this.name, ">" ].join("");
             }, tagBody = function() {
-                return this.children ? "string" == typeof this.children ? this.children : this.children instanceof Array ? this.children.map(function(child) {
+                return "string" == typeof this.children ? this.children : this.children instanceof Array ? this.children.filter(function(x) {
+                    return x;
+                }).map(function(child) {
                     return "string" == typeof child ? child : "function" == typeof child.toHtml ? child.toHtml() : child.toString();
-                }).join("") : void 0 : "";
+                }).join("") : void 0;
             };
             return Tag.prototype.toHtml = function() {
                 return [ tagStart.apply(this), tagBody.apply(this), tagEnd.apply(this) ].join("");
             }, Tag;
         }(), html;
     }(), exports.TextField = function() {
-        var TextField = function(options) {
-            "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.name = options);
+        var counter = 0, TextField = function(options) {
+            "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.name = options), 
+            this.id || (this.id = "formaid-" + counter++);
         };
         return TextField;
     }();

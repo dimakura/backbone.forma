@@ -55,18 +55,16 @@ exports.html = (function() {
     };
 
     var tagBody = function() {
-      if(this.children) {
-        if (typeof this.children === 'string') {
-          return this.children;
-        } else if (this.children instanceof Array) {
-          return this.children.map(function(child) {
-            if (typeof child === 'string') { return child; }
-            else if (typeof child.toHtml === 'function') { return child.toHtml(); }
-            else { return child.toString(); }
-          }).join('');
-        }
-      } else {
-        return '';
+      if (typeof this.children === 'string') {
+        return this.children;
+      } else if (this.children instanceof Array) {
+        return this.children.filter(function(x) {
+          return x;
+        }).map(function(child) {
+          if (typeof child === 'string') { return child; }
+          else if (typeof child.toHtml === 'function') { return child.toHtml(); }
+          else { return child.toString(); }
+        }).join('');
       }
     };
 
