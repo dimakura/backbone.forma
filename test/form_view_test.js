@@ -11,11 +11,10 @@ QUnit.test( "basic form view", function( assert ) {
       new forma.TextField({ name: 'username', label: 'Username', required: true }),
       new forma.TextField({ name: 'password', label: 'Password', required: true, hidden: true })
     ],
-    actions: {
-      submit: {
-        label: 'Login'
-      }
-    }
+    actions: [
+      new forma.Action({ label: 'Login', action: 'onLogin', type: 'primary', icon: 'check' }),
+      new forma.Action({ label: 'Cancel', action: 'onCancel', icon: 'times' }),
+    ]
   });
   var formView = new forma.FormView({ form: form, model: model });
 

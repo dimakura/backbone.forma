@@ -36,9 +36,17 @@ exports.DefaultFormEngine = (function() {
     }
   };
 
+  var generateActionsTag = function() {
+    if ( this.form.actions ) {
+      var children = this.form.actions.map(function(action) { return action.generateActionButtonTag(); });
+      return new exports.html.Tag('div', { class: 'forma-actions' }, children);
+    }
+  };
+
   var generateBodyTag = function() {
     return new exports.html.Tag('div', { class: 'forma-body' }, [
       generateFieldsTag.apply(this),
+      generateActionsTag.apply(this),
     ]);
   };
 
@@ -52,12 +60,11 @@ exports.DefaultFormEngine = (function() {
 
     var children = [
       generateTitleTag.apply(this),
-      generateBodyTag.apply(this),
+      generateBodyTag.apply(this)
     ];
 
     return new exports.html.Tag('div', {class: 'forma-form'}, children);
   };
-
 
   return Engine;
 

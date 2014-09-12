@@ -17,10 +17,6 @@ exports.TextField = (function() {
     return engine.generateFieldTag(this);
   };
 
-  TextField.prototype.toHtml = function() {
-    return this.generateFormTag().toHtml();
-  };
-
   return TextField;
 
 })();

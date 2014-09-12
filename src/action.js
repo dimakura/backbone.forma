@@ -8,6 +8,11 @@ exports.Action = (function() {
     }
   };
 
+  Action.prototype.generateActionButtonTag = function() {
+    var engine = new exports.ActionEngine();
+    return engine.generateActionButtonTag(this);
+  };
+
   return Action;
 
 })();

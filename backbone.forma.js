@@ -3,8 +3,24 @@
         var Action = function(options) {
             "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.label = options);
         };
-        return Action;
-    }(), exports.DefaultFormEngine = function() {
+        return Action.prototype.generateActionButtonTag = function() {
+            var engine = new exports.ActionEngine();
+            return engine.generateActionButtonTag(this);
+        }, Action;
+    }(), exports.DefaultActionEngine = function() {
+        var Engine = function() {};
+        return Engine.prototype.generateActionButtonTag = function(action) {
+            this.action = action, this.iconEngine = exports.iconEngine;
+            var children = [];
+            this.action.icon && children.push(this.iconEngine.generateIconTag(this.action.icon)), 
+            this.action.label && children.push(this.action.label);
+            var buttonClasses = [ "forma-action", "btn" ];
+            return buttonClasses.push(this.action.type ? "btn-" + this.action.type : "btn-default"), 
+            new exports.html.Tag("button", {
+                "class": buttonClasses
+            }, children);
+        }, Engine;
+    }(), exports.ActionEngine = exports.DefaultActionEngine, exports.DefaultFormEngine = function() {
         var generateTitleTag = function() {
             var iconTag, title = this.form.title, icon = this.form.icon, children = [];
             return title ? (icon && (iconTag = this.iconEngine.generateIconTag(icon, {
@@ -22,10 +38,19 @@
             }, fields.map(function(field) {
                 return field.generateFieldTag();
             })) : void 0;
+        }, generateActionsTag = function() {
+            if (this.form.actions) {
+                var children = this.form.actions.map(function(action) {
+                    return action.generateActionButtonTag();
+                });
+                return new exports.html.Tag("div", {
+                    "class": "forma-actions"
+                }, children);
+            }
         }, generateBodyTag = function() {
             return new exports.html.Tag("div", {
                 "class": "forma-body"
-            }, [ generateFieldsTag.apply(this) ]);
+            }, [ generateFieldsTag.apply(this), generateActionsTag.apply(this) ]);
         }, Engine = function() {};
         return Engine.prototype.generateFormTag = function(form) {
             this.form = form, this.iconEngine = exports.iconEngine;
@@ -137,8 +162,6 @@
         return TextField.prototype.generateFieldTag = function() {
             var engine = new forma.TextFieldEngine();
             return engine.generateFieldTag(this);
-        }, TextField.prototype.toHtml = function() {
-            return this.generateFormTag().toHtml();
         }, TextField;
     }();
 }({}, function() {
