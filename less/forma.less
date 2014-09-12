@@ -1,11 +1,13 @@
 @import 'colors.less';
 @import 'sizes.less';
+@import 'functions.less';
 
 @default-border-params: @border-width solid @border-color;
 
 .forma-form {
   border-bottom: @default-border-params;
   .forma-title {
+    .user-select-none;
     border-top: @default-border-params;
     border-left: @default-border-params;
     border-right: @default-border-params;
