@@ -8,11 +8,12 @@
   border-bottom: @default-border-params;
   .forma-title {
     .user-select-none;
-    border-top: @default-border-params;
-    border-left: @default-border-params;
-    border-right: @default-border-params;
+    .border-radius(3px 3px 0 0);
+    background: @title-background;
+    border: @default-border-params;
+    border-bottom: 0;
     cursor: pointer;
-    padding: 4px 8px;
+    padding: 9px 10px 10px;
     .forma-title-icon {
       // TODO: http://blog.mozilla.org/webdev/2009/02/20/cross-browser-inline-block/
       display: inline-block;
