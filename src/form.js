@@ -8,6 +8,11 @@ exports.Form = (function() {
     }
   };
 
+  Form.prototype.toHtml = function() {
+    var engine = new forma.FormEngine();
+    return engine.generateFormTag(this).toHtml();
+  };
+
   return Form;
 
 })();

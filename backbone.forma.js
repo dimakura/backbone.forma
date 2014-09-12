@@ -37,15 +37,17 @@
         var Form = function(options) {
             "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.title = options);
         };
-        return Form;
+        return Form.prototype.toHtml = function() {
+            var engine = new forma.FormEngine();
+            return engine.generateFormTag(this).toHtml();
+        }, Form;
     }(), exports.FormView = function() {
         var FormView = Backbone.Marionette.ItemView.extend({
             initialize: function(options) {
                 if (this.form = options && options.form, !this.form) throw new exports.Error("form not defined");
             },
             getTemplate: function() {
-                var engine = new forma.FormEngine(), template = engine.generateFormTag(this.form).toHtml();
-                return _.template(template);
+                return _.template(this.form.toHtml());
             }
         });
         return FormView;

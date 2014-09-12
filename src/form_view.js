@@ -10,9 +10,7 @@ exports.FormView = (function() {
     },
 
     getTemplate: function() {
-      var engine = new forma.FormEngine();
-      var template = engine.generateFormTag(this.form).toHtml();
-      return _.template(template);
+      return _.template( this.form.toHtml() );
     }
 
   });
