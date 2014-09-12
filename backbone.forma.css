@@ -39,3 +39,12 @@
 .forma-form .forma-body form {
   padding: 18px 12px 3px 12px;
 }
+.forma-form .forma-body .forma-actions {
+  padding: 0 12px 12px 12px;
+}
+.forma-form .forma-body .forma-actions .forma-action {
+  margin-right: 4px;
+}
+.forma-form .forma-body .forma-actions .forma-action i.fa {
+  margin-right: 4px;
+}
