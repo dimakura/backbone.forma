@@ -5,9 +5,6 @@
   -o-user-select: none;
   user-select: none;
 }
-.forma-form {
-  border-bottom: 1px solid #d8d8d8;
-}
 .forma-form .forma-title {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -31,4 +28,10 @@
 .forma-form .forma-title .forma-title-text {
   font-size: 14px;
   font-weight: bold;
+}
+.forma-form .forma-body {
+  border: 1px solid #d8d8d8;
+}
+.forma-form .forma-body form {
+  padding: 18px 12px 3px 12px;
 }

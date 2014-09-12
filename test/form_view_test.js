@@ -1,9 +1,19 @@
 QUnit.test( "basic form view", function( assert ) {
+  var model = new Backbone.Model({
+    username: 'dimitri',
+    password: 'secret'
+  });
+
   var form = new forma.Form({
     title: 'Login',
-    icon: 'user'
+    icon: 'user',
+    fields: [
+      new forma.TextField({ name: 'username', label: 'Username', required: true }),
+      new forma.TextField({ name: 'password', label: 'Password', required: true, hidden: true })
+    ],
+    
   });
-  var formView = new forma.FormView({form: form});
+  var formView = new forma.FormView({ form: form, model: model });
 
   assert.ok(formView, 'form view defined');
   assert.equal(formView.form, form, 'form should be defined in formView');

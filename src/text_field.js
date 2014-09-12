@@ -12,6 +12,15 @@ exports.TextField = (function() {
     }
   };
 
+  TextField.prototype.generateFieldTag = function() {
+    var engine = new forma.TextFieldEngine();
+    return engine.generateFieldTag(this);
+  };
+
+  TextField.prototype.toHtml = function() {
+    return this.generateFormTag().toHtml();
+  };
+
   return TextField;
 
 })();

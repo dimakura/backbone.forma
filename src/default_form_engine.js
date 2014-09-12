@@ -5,24 +5,41 @@ exports.DefaultFormEngine = (function() {
 
   var generateTitleTag = function() {
     var title = this.form.title
-      , icon = this.form.icon;
+      , icon = this.form.icon
+      , children = []
+      , iconTag
+      , titleTag;
 
-    if (title) {
-      var children = []
-        , iconTag
-        , titleTag;
+    if ( title ) {
 
-      if (icon) {
+      if ( icon ) {
         iconTag = this.iconEngine.generateIconTag(icon, { class: 'forma-title-icon' });
         children.push(iconTag);
       }
 
-      if(title) {
-        children.push(new exports.html.Tag('span', {class: 'forma-title-text'}, title));
+      if ( title ) {
+        children.push(new exports.html.Tag('span', { class: 'forma-title-text' }, title));
       }
       
-      return new exports.html.Tag('div', {class: 'forma-title'}, children);
+      return new exports.html.Tag('div', { class: 'forma-title' }, children);
     }
+  };
+
+  var generateFieldsTag = function() {
+    var fields = this.form.fields
+      , children = [];
+
+    if ( fields ) {
+      return new exports.html.Tag('form', { role: 'form', class: 'form-fields' }, fields.map(function(field) {
+        return field.generateFieldTag();
+      }));
+    }
+  };
+
+  var generateBodyTag = function() {
+    return new exports.html.Tag('div', { class: 'forma-body' }, [
+      generateFieldsTag.apply(this),
+    ]);
   };
 
   var Engine = function() {
@@ -35,6 +52,7 @@ exports.DefaultFormEngine = (function() {
 
     var children = [
       generateTitleTag.apply(this),
+      generateBodyTag.apply(this),
     ];
 
     return new exports.html.Tag('div', {class: 'forma-form'}, children);

@@ -5,7 +5,7 @@
 @default-border-params: @border-width solid @border-color;
 
 .forma-form {
-  border-bottom: @default-border-params;
+  //border-bottom: @default-border-params;
   .forma-title {
     .user-select-none;
     .border-radius(3px 3px 0 0);
@@ -23,6 +23,12 @@
     .forma-title-text {
       font-size: @title-font-size;
       font-weight: bold;
+    }
+  }
+  .forma-body {
+    border: @default-border-params;
+    form {
+      padding: 18px 12px 3px 12px;
     }
   }
 }

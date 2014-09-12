@@ -14,7 +14,8 @@ exports.DefaultTextFieldEngine = (function() {
     return new exports.html.Tag('input', {
       id: this.field.id,
       type: type,
-      value: '<%-'+this.field.name+'%>'
+      value: '<%-'+this.field.name+'%>',
+      class: 'form-control'
     });
   };
 

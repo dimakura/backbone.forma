@@ -1,21 +1,30 @@
 !function(exports, global) {
     global.forma = exports, exports.DefaultFormEngine = function() {
         var generateTitleTag = function() {
-            var title = this.form.title, icon = this.form.icon;
-            if (title) {
-                var iconTag, children = [];
-                return icon && (iconTag = this.iconEngine.generateIconTag(icon, {
-                    "class": "forma-title-icon"
-                }), children.push(iconTag)), title && children.push(new exports.html.Tag("span", {
-                    "class": "forma-title-text"
-                }, title)), new exports.html.Tag("div", {
-                    "class": "forma-title"
-                }, children);
-            }
+            var iconTag, title = this.form.title, icon = this.form.icon, children = [];
+            return title ? (icon && (iconTag = this.iconEngine.generateIconTag(icon, {
+                "class": "forma-title-icon"
+            }), children.push(iconTag)), title && children.push(new exports.html.Tag("span", {
+                "class": "forma-title-text"
+            }, title)), new exports.html.Tag("div", {
+                "class": "forma-title"
+            }, children)) : void 0;
+        }, generateFieldsTag = function() {
+            var fields = this.form.fields;
+            return fields ? new exports.html.Tag("form", {
+                role: "form",
+                "class": "form-fields"
+            }, fields.map(function(field) {
+                return field.generateFieldTag();
+            })) : void 0;
+        }, generateBodyTag = function() {
+            return new exports.html.Tag("div", {
+                "class": "forma-body"
+            }, [ generateFieldsTag.apply(this) ]);
         }, Engine = function() {};
         return Engine.prototype.generateFormTag = function(form) {
             this.form = form, this.iconEngine = exports.iconEngine;
-            var children = [ generateTitleTag.apply(this) ];
+            var children = [ generateTitleTag.apply(this), generateBodyTag.apply(this) ];
             return new exports.html.Tag("div", {
                 "class": "forma-form"
             }, children);
@@ -37,7 +46,8 @@
             return new exports.html.Tag("input", {
                 id: this.field.id,
                 type: type,
-                value: "<%-" + this.field.name + "%>"
+                value: "<%-" + this.field.name + "%>",
+                "class": "form-control"
             });
         }, Engine = function() {};
         return Engine.prototype.generateFieldTag = function(field) {
@@ -57,14 +67,16 @@
         var Form = function(options) {
             "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.title = options);
         };
-        return Form.prototype.toHtml = function() {
+        return Form.prototype.generateFormTag = function() {
             var engine = new forma.FormEngine();
-            return engine.generateFormTag(this).toHtml();
+            return engine.generateFormTag(this);
+        }, Form.prototype.toHtml = function() {
+            return this.generateFormTag().toHtml();
         }, Form;
     }(), exports.FormView = function() {
         var FormView = Backbone.Marionette.ItemView.extend({
             initialize: function(options) {
-                if (this.form = options && options.form, !this.form) throw new exports.Error("form not defined");
+                if ("object" == typeof options && _.extend(this, options), !this.form) throw new exports.Error("form not defined");
             },
             getTemplate: function() {
                 return _.template(this.form.toHtml());
@@ -112,7 +124,12 @@
             "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.name = options), 
             this.id || (this.id = "formaid-" + counter++);
         };
-        return TextField;
+        return TextField.prototype.generateFieldTag = function() {
+            var engine = new forma.TextFieldEngine();
+            return engine.generateFieldTag(this);
+        }, TextField.prototype.toHtml = function() {
+            return this.generateFormTag().toHtml();
+        }, TextField;
     }();
 }({}, function() {
     return this;

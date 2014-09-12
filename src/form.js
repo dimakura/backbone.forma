@@ -8,9 +8,13 @@ exports.Form = (function() {
     }
   };
 
-  Form.prototype.toHtml = function() {
+  Form.prototype.generateFormTag = function() {
     var engine = new forma.FormEngine();
-    return engine.generateFormTag(this).toHtml();
+    return engine.generateFormTag(this);
+  };
+
+  Form.prototype.toHtml = function() {
+    return this.generateFormTag().toHtml();
   };
 
   return Form;

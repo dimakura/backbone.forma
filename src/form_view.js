@@ -3,10 +3,8 @@ exports.FormView = (function() {
   var FormView = Backbone.Marionette.ItemView.extend({
 
     initialize: function(options) {
-      this.form = options && options.form;
-      if( !this.form ) {
-        throw new exports.Error('form not defined');
-      }
+      if ( typeof options === 'object' ) { _.extend(this, options); }
+      if ( !this.form ) { throw new exports.Error('form not defined'); }
     },
 
     getTemplate: function() {
