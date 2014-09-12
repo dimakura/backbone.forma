@@ -83,6 +83,11 @@
                 return [ tagStart.apply(this), tagBody.apply(this), tagEnd.apply(this) ].join("");
             }, Tag;
         }(), html;
+    }(), exports.TextField = function() {
+        var TextField = function(options) {
+            "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.name = options);
+        };
+        return TextField;
     }();
 }({}, function() {
     return this;
