@@ -1,5 +1,10 @@
 !function(exports, global) {
-    global.forma = exports, exports.DefaultFormEngine = function() {
+    global.forma = exports, exports.Action = function() {
+        var Action = function(options) {
+            "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.label = options);
+        };
+        return Action;
+    }(), exports.DefaultFormEngine = function() {
         var generateTitleTag = function() {
             var iconTag, title = this.form.title, icon = this.form.icon, children = [];
             return title ? (icon && (iconTag = this.iconEngine.generateIconTag(icon, {
