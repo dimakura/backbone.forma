@@ -38,9 +38,14 @@
         }
     }, exports.iconEngine = exports.DefaultIconEngine, exports.DefaultTextFieldEngine = function() {
         var generateLabelTag = function() {
-            return this.field.label ? new exports.html.Tag("label", {
-                "for": this.field.id
-            }, this.field.label) : void 0;
+            if (this.field.label) {
+                var children = [ this.field.label ];
+                return this.field.required && children.push(new exports.html.Tag("span", {
+                    "class": "forma-required"
+                }, "*")), new exports.html.Tag("label", {
+                    "for": this.field.id
+                }, children);
+            }
         }, generateInputField = function() {
             var type = this.field.hidden ? "password" : this.field.email ? "email" : "text";
             return new exports.html.Tag("input", {

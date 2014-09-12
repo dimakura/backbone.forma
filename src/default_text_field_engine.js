@@ -5,7 +5,11 @@ exports.DefaultTextFieldEngine = (function() {
 
   var generateLabelTag = function() {
     if( this.field.label ) {
-      return new exports.html.Tag('label', { for: this.field.id }, this.field.label);
+      var children = [ this.field.label ];
+      if ( this.field.required ) {
+        children.push(new exports.html.Tag('span', { class: 'forma-required' }, '*'));
+      }
+      return new exports.html.Tag('label', { for: this.field.id }, children);
     }
   };
 
