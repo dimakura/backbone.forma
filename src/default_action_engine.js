@@ -8,8 +8,6 @@ exports.DefaultActionEngine = (function() {
     this.action = action;
     this.iconEngine = exports.iconEngine;
 
-
-
     var children = [];
     if ( this.action.icon ) { children.push(this.iconEngine.generateIconTag(this.action.icon)); }
     if ( this.action.label ) { children.push(this.action.label); }
@@ -18,7 +16,7 @@ exports.DefaultActionEngine = (function() {
     if ( this.action.type ) { buttonClasses.push('btn-'+this.action.type); }
     else { buttonClasses.push('btn-default'); }
 
-    return new exports.html.Tag('button', { class: buttonClasses }, children);
+    return new exports.html.Tag('button', { id: this.action.id, class: buttonClasses }, children);
   };
 
   return Engine;
