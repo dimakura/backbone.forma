@@ -8,7 +8,7 @@ exports.FormView = (function() {
     if ( ! form.actions ) { return; }
 
     self.events = self.events || {};
-    console.log(form.actions);
+
     form.actions.forEach(function(action) {
       self.events['click #' + action.id] = action.action;
     });

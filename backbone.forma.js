@@ -114,7 +114,7 @@
     }(), exports.FormView = function() {
         var initializeActions = function() {
             var self = this, form = self.form;
-            form.actions && (self.events = self.events || {}, console.log(form.actions), form.actions.forEach(function(action) {
+            form.actions && (self.events = self.events || {}, form.actions.forEach(function(action) {
                 self.events["click #" + action.id] = action.action;
             }));
         }, FormView = Backbone.Marionette.ItemView.extend({
