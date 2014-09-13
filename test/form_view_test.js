@@ -16,12 +16,18 @@ QUnit.test( "basic form view", function( assert ) {
       new forma.Action({ label: 'Cancel', action: 'onCancel', icon: 'times' }),
     ]
   });
-  var formView = new forma.FormView({ form: form, model: model });
+
+  var formView = new forma.FormView({
+    form: form,
+    model: model,
+  });
+
+  window.formView = formView;
 
   assert.ok(formView, 'form view defined');
   assert.equal(formView.form, form, 'form should be defined in formView');
 
-  formView.$el = $('#playground');
+  formView.setElement('#playground');
   formView.render();
 
   var $form = $('#playground .forma-form');
