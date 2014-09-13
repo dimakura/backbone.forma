@@ -1,7 +1,8 @@
 !function(exports, global) {
     global.forma = exports, exports.Action = function() {
         var Action = function(options) {
-            "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.label = options);
+            "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.label = options), 
+            this.id || (this.id = exports.utils.nextId());
         };
         return Action.prototype.generateActionButtonTag = function() {
             var engine = new exports.ActionEngine();
@@ -17,6 +18,7 @@
             var buttonClasses = [ "forma-action", "btn" ];
             return buttonClasses.push(this.action.type ? "btn-" + this.action.type : "btn-default"), 
             new exports.html.Tag("button", {
+                id: this.action.id,
                 "class": buttonClasses
             }, children);
         }, Engine;
@@ -110,9 +112,15 @@
             return this.generateFormTag().toHtml();
         }, Form;
     }(), exports.FormView = function() {
-        var FormView = Backbone.Marionette.ItemView.extend({
+        var initializeActions = function() {
+            var self = this, form = self.form;
+            form.actions && (self.events = self.events || {}, console.log(form.actions), form.actions.forEach(function(action) {
+                self.events["click #" + action.id] = action.action;
+            }));
+        }, FormView = Backbone.Marionette.ItemView.extend({
             initialize: function(options) {
                 if ("object" == typeof options && _.extend(this, options), !this.form) throw new exports.Error("form not defined");
+                initializeActions.apply(this);
             },
             getTemplate: function() {
                 return _.template(this.form.toHtml());
@@ -156,14 +164,21 @@
             }, Tag;
         }(), html;
     }(), exports.TextField = function() {
-        var counter = 0, TextField = function(options) {
+        var TextField = function(options) {
             "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.name = options), 
-            this.id || (this.id = "formaid-" + counter++);
+            this.id || (this.id = exports.utils.nextId());
         };
         return TextField.prototype.generateFieldTag = function() {
             var engine = new forma.TextFieldEngine();
             return engine.generateFieldTag(this);
         }, TextField;
+    }(), exports.utils = function() {
+        var counter = 0, utils = {
+            nextId: function() {
+                return "formaid-" + counter++;
+            }
+        };
+        return utils;
     }();
 }({}, function() {
     return this;

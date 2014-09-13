@@ -4,6 +4,9 @@ QUnit.test( "basic form view", function( assert ) {
     password: 'secret'
   });
 
+  var loggedIn = false;
+  var canceled = false;
+
   var form = new forma.Form({
     title: 'Login User',
     icon: 'user',
@@ -12,8 +15,12 @@ QUnit.test( "basic form view", function( assert ) {
       new forma.TextField({ name: 'password', label: 'Password', required: true, hidden: true })
     ],
     actions: [
-      new forma.Action({ label: 'Login', action: 'onLogin', type: 'primary', icon: 'check' }),
-      new forma.Action({ label: 'Cancel', action: 'onCancel', icon: 'times' }),
+      new forma.Action({ label: 'Login', type: 'primary', icon: 'check', action: function() {
+        loggedIn = true;
+      }}),
+      new forma.Action({ label: 'Cancel', icon: 'times', action: function() {
+        canceled = true;
+      }}),
     ]
   });
 
@@ -21,8 +28,6 @@ QUnit.test( "basic form view", function( assert ) {
     form: form,
     model: model,
   });
-
-  window.formView = formView;
 
   assert.ok(formView, 'form view defined');
   assert.equal(formView.form, form, 'form should be defined in formView');
@@ -40,4 +45,18 @@ QUnit.test( "basic form view", function( assert ) {
   var $password = $($('input[name="password"]')[0]);
   assert.ok($password);
   assert.equal($password.val(), 'secret');
+
+  // testing actions
+
+  assert.ok( ! loggedIn );
+  assert.ok( ! canceled );
+
+  var $loginButton = $($('#playground button')[0]);
+  var $cancelButton = $($('#playground button')[1]);
+
+  $loginButton.click();
+  $cancelButton.click();
+
+  assert.ok( loggedIn );
+  assert.ok( canceled );
 });
