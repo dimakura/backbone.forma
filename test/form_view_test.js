@@ -30,6 +30,14 @@ QUnit.test( "basic form view", function( assert ) {
   formView.setElement('#playground');
   formView.render();
 
-  var $form = $('#playground .forma-form');
-  assert.equal($form.length, 1);
+  var $form = $($('#playground .forma-form')[0]);
+  assert.ok($form);
+
+  var $username = $($('input[name="username"]')[0]);
+  assert.ok($username);
+  assert.equal($username.val(), 'dimitri');
+
+  var $password = $($('input[name="password"]')[0]);
+  assert.ok($password);
+  assert.equal($password.val(), 'secret');
 });

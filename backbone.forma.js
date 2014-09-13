@@ -80,6 +80,7 @@
             var type = this.field.hidden ? "password" : this.field.email ? "email" : "text";
             return new exports.html.Tag("input", {
                 id: this.field.id,
+                name: this.field.name,
                 type: type,
                 value: "<%-" + this.field.name + "%>",
                 "class": "form-control"

@@ -8,5 +8,5 @@ QUnit.test( "default text field engine", function( assert ) {
   assert.ok(html.indexOf('<div class="forma-field form-group">') !== -1);
   assert.ok(html.indexOf('<label for="'+field.id+'">') !== -1);
   assert.ok(html.indexOf('Username') !== -1);
-  assert.ok(html.indexOf('<input id="'+field.id+'" type="text" value="<%-username%>" class="form-control"></input>') !== -1);
+  assert.ok(html.indexOf('<input id="'+field.id+'" name="username" type="text" value="<%-username%>" class="form-control"></input>') !== -1);
 });
