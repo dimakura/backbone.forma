@@ -22,7 +22,34 @@
                 "class": buttonClasses
             }, children);
         }, Engine;
-    }(), exports.ActionEngine = exports.DefaultActionEngine, exports.DefaultFormEngine = function() {
+    }(), exports.ActionEngine = exports.DefaultActionEngine, exports.DefaultTextFieldEngine = function() {
+        var generateLabelTag = function() {
+            if (this.field.label) {
+                var children = [ this.field.label ];
+                return this.field.required && children.push(new exports.html.Tag("span", {
+                    "class": "forma-required"
+                }, "*")), new exports.html.Tag("label", {
+                    "for": this.field.id
+                }, children);
+            }
+        }, generateInputField = function() {
+            var type = this.field.hidden ? "password" : this.field.email ? "email" : "text";
+            return new exports.html.Tag("input", {
+                id: this.field.id,
+                name: this.field.name,
+                type: type,
+                value: "<%-" + this.field.name + "%>",
+                "class": "form-control"
+            });
+        }, Engine = function() {};
+        return Engine.prototype.generateFieldTag = function(field) {
+            this.field = field, this.iconEngine = exports.iconEngine;
+            var children = [ generateLabelTag.apply(this), generateInputField.apply(this) ];
+            return new exports.html.Tag("div", {
+                "class": [ "forma-field", "form-group" ]
+            }, children);
+        }, Engine;
+    }(), exports.TextFieldEngine = exports.DefaultTextFieldEngine, exports.DefaultFormEngine = function() {
         var generateTitleTag = function() {
             var iconTag, title = this.form.title, icon = this.form.icon, children = [];
             return title ? (icon && (iconTag = this.iconEngine.generateIconTag(icon, {
@@ -68,34 +95,7 @@
                 "class": classNames
             });
         }
-    }, exports.iconEngine = exports.DefaultIconEngine, exports.DefaultTextFieldEngine = function() {
-        var generateLabelTag = function() {
-            if (this.field.label) {
-                var children = [ this.field.label ];
-                return this.field.required && children.push(new exports.html.Tag("span", {
-                    "class": "forma-required"
-                }, "*")), new exports.html.Tag("label", {
-                    "for": this.field.id
-                }, children);
-            }
-        }, generateInputField = function() {
-            var type = this.field.hidden ? "password" : this.field.email ? "email" : "text";
-            return new exports.html.Tag("input", {
-                id: this.field.id,
-                name: this.field.name,
-                type: type,
-                value: "<%-" + this.field.name + "%>",
-                "class": "form-control"
-            });
-        }, Engine = function() {};
-        return Engine.prototype.generateFieldTag = function(field) {
-            this.field = field, this.iconEngine = exports.iconEngine;
-            var children = [ generateLabelTag.apply(this), generateInputField.apply(this) ];
-            return new exports.html.Tag("div", {
-                "class": [ "forma-field", "form-group" ]
-            }, children);
-        }, Engine;
-    }(), exports.TextFieldEngine = exports.DefaultTextFieldEngine, exports.Error = function() {
+    }, exports.iconEngine = exports.DefaultIconEngine, exports.Error = function() {
         var FormaError = function(message) {
             this.name = "FormaError", this.message = message, this.stack = new Error().stack;
         };
