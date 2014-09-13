@@ -127,6 +127,15 @@
             }
         });
         return FormView;
+    }(), exports.TextField = function() {
+        var TextField = function(options) {
+            "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.name = options), 
+            this.id || (this.id = exports.utils.nextId());
+        };
+        return TextField.prototype.generateFieldTag = function() {
+            var engine = new forma.TextFieldEngine();
+            return engine.generateFieldTag(this);
+        }, TextField;
     }(), exports.html = function() {
         var html = {};
         return html.Tag = function() {
@@ -163,15 +172,6 @@
                 return [ tagStart.apply(this), tagBody.apply(this), tagEnd.apply(this) ].join("");
             }, Tag;
         }(), html;
-    }(), exports.TextField = function() {
-        var TextField = function(options) {
-            "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.name = options), 
-            this.id || (this.id = exports.utils.nextId());
-        };
-        return TextField.prototype.generateFieldTag = function() {
-            var engine = new forma.TextFieldEngine();
-            return engine.generateFieldTag(this);
-        }, TextField;
     }(), exports.utils = function() {
         var counter = 0, utils = {
             nextId: function() {
