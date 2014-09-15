@@ -132,7 +132,7 @@
                 this.events = this.events || {}, initializeActions.apply(this), initializeChangeListeners.apply(this);
             },
             getTemplate: function() {
-                return console.log("generate template!"), _.template(this.form.toHtml());
+                return _.template(this.form.toHtml());
             }
         });
         return FormView;

@@ -29,7 +29,6 @@ exports.FormView = (function() {
     },
 
     getTemplate: function() {
-      console.log('generate template!');
       return _.template( this.form.toHtml() );
     },
 
