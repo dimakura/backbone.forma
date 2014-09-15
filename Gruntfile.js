@@ -6,6 +6,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -49,6 +50,15 @@ module.exports = function(grunt) {
         files: ['src/**/*.js'],
         tasks: ['default']
       }
+    },
+
+    copy: {
+      tmp: {
+        files: [
+          { expand: true, src: './backbone.forma.js', dest: '../tel100/public/js/vendor' },
+          { expand: true, src: './backbone.forma.css', dest: '../tel100/public/css' }
+        ]
+      },
     }
   });
 
@@ -57,5 +67,5 @@ module.exports = function(grunt) {
     fs.unlinkSync(path);
   });
 
-  grunt.registerTask('default', ['concat', 'uglify', 'clear-dist']); 
+  grunt.registerTask('default', ['concat', 'uglify', 'clear-dist', 'copy:tmp']); 
 };
