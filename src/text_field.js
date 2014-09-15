@@ -18,6 +18,13 @@ exports.TextField = (function() {
     return engine.generateFieldTag(this);
   };
 
+  TextField.prototype.registerOnChangeEvent = function(view) {
+    var self = this;
+    exports.TextFieldEngine.registerOnChangeEvent(this, view, function(value) {
+      view.model.set(self.name, value);
+    });
+  };
+
   return TextField;
 
 })();

@@ -40,6 +40,12 @@ exports.DefaultTextFieldEngine = (function() {
     return new exports.html.Tag('div', { class: ['forma-field', 'form-group'] }, children);
   };
 
+  Engine.registerOnChangeEvent = function(field, view, callback) {
+    view.events['change #'+field.id] = function() {
+      callback( $('#'+field.id).val() );
+    };
+  };
+
   return Engine;
 
 })();

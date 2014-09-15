@@ -7,13 +7,13 @@ QUnit.test( "basic form view", function( assert ) {
   var loggedIn = false;
   var canceled = false;
 
+  var usernameFld = new forma.TextField({ name: 'username', label: 'Username', required: true });
+  var passwordFld = new forma.TextField({ name: 'password', label: 'Password', required: true, hidden: true });
+
   var form = new forma.Form({
     title: 'Login User',
     icon: 'user',
-    fields: [
-      new forma.TextField({ name: 'username', label: 'Username', required: true }),
-      new forma.TextField({ name: 'password', label: 'Password', required: true, hidden: true })
-    ],
+    fields: [ usernameFld, passwordFld ],
     actions: [
       new forma.Action({ label: 'Login', type: 'primary', icon: 'check', action: function() {
         loggedIn = true;
@@ -59,4 +59,16 @@ QUnit.test( "basic form view", function( assert ) {
 
   assert.ok( loggedIn );
   assert.ok( canceled );
+
+  // testing model changes
+
+  $username = $('#' + usernameFld.id);
+  $password = $('#' + passwordFld.id);
+
+  $username.val('new_username'); $username.change();
+  $password.val('new_password'); $password.change();
+
+  var newModel = formView.model;
+  assert.equal(newModel.get('username'), 'new_username');
+
 });

@@ -48,6 +48,10 @@
             return new exports.html.Tag("div", {
                 "class": [ "forma-field", "form-group" ]
             }, children);
+        }, Engine.registerOnChangeEvent = function(field, view, callback) {
+            view.events["change #" + field.id] = function() {
+                callback($("#" + field.id).val());
+            };
         }, Engine;
     }(), exports.TextFieldEngine = exports.DefaultTextFieldEngine, exports.DefaultFormEngine = function() {
         var generateTitleTag = function() {
@@ -114,16 +118,21 @@
     }(), exports.FormView = function() {
         var initializeActions = function() {
             var self = this, form = self.form;
-            form.actions && (self.events = self.events || {}, form.actions.forEach(function(action) {
+            form.actions && form.actions.forEach(function(action) {
                 self.events["click #" + action.id] = action.action;
-            }));
+            });
+        }, initializeChangeListeners = function() {
+            var self = this, form = self.form;
+            form.fields.forEach(function(field) {
+                field.registerOnChangeEvent(self);
+            });
         }, FormView = Backbone.Marionette.ItemView.extend({
             initialize: function(options) {
                 if ("object" == typeof options && _.extend(this, options), !this.form) throw new exports.Error("form not defined");
-                initializeActions.apply(this);
+                this.events = this.events || {}, initializeActions.apply(this), initializeChangeListeners.apply(this);
             },
             getTemplate: function() {
-                return _.template(this.form.toHtml());
+                return console.log("generate template!"), _.template(this.form.toHtml());
             }
         });
         return FormView;
@@ -135,6 +144,11 @@
         return TextField.prototype.generateFieldTag = function() {
             var engine = new forma.TextFieldEngine();
             return engine.generateFieldTag(this);
+        }, TextField.prototype.registerOnChangeEvent = function(view) {
+            var self = this;
+            exports.TextFieldEngine.registerOnChangeEvent(this, view, function(value) {
+                view.model.set(self.name, value);
+            });
         }, TextField;
     }(), exports.html = function() {
         var html = {};
