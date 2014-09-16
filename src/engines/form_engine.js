@@ -23,6 +23,10 @@ exports.DefaultFormEngine = (function() {
     }
   };
 
+  var generateFormErrors = function() {
+    return '<%if (typeof _errors !== "undefined" && typeof _errors._form !== "undefined" && _errors._form){%><div class="alert alert-danger"><%= _errors._form %></div><%}%>';
+  };
+
   var generateFieldsTag = function() {
     var self = this;
     var fields = this.form.fields;
@@ -44,6 +48,7 @@ exports.DefaultFormEngine = (function() {
 
   var generateBodyTag = function() {
     return new exports.html.Tag('form', { role: 'form', class: 'form-body' }, [
+      generateFormErrors.apply(this),
       generateFieldsTag.apply(this),
       generateActionsTag.apply(this),
     ]);

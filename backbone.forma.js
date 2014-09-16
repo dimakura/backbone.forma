@@ -66,6 +66,8 @@
             }, title)), new exports.html.Tag("div", {
                 "class": "forma-title"
             }, children)) : void 0;
+        }, generateFormErrors = function() {
+            return '<%if (typeof _errors !== "undefined" && typeof _errors._form !== "undefined" && _errors._form){%><div class="alert alert-danger"><%= _errors._form %></div><%}%>';
         }, generateFieldsTag = function() {
             var fields = this.form.fields;
             return fields ? new exports.html.Tag("div", {
@@ -87,7 +89,7 @@
             return new exports.html.Tag("form", {
                 role: "form",
                 "class": "form-body"
-            }, [ generateFieldsTag.apply(this), generateActionsTag.apply(this) ]);
+            }, [ generateFormErrors.apply(this), generateFieldsTag.apply(this), generateActionsTag.apply(this) ]);
         }, Engine = function() {};
         return Engine.prototype.generateFormTag = function(form) {
             this.form = form, this.iconEngine = exports.iconEngine;
