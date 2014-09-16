@@ -17,7 +17,7 @@ exports.DefaultTextFieldEngine = (function() {
       id: this.field.id,
       name: this.field.name,
       type: type,
-      value: '<%-'+this.field.name+'%>',
+      value: '<%if(typeof '+this.field.name+' !== "undefined"){%><%-'+this.field.name+'%><%}%>',
       class: 'form-control'
     });
   };
