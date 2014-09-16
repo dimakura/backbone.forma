@@ -1,11 +1,15 @@
 QUnit.test( "basic form view", function( assert ) {
-  var model = new Backbone.Model({
+  var User = Backbone.Model.extend({
+    defaults: {
+      username: '',
+      password: ''
+    }
+  });
+
+  var model = new User({
     username: 'dimitri',
     password: 'secret'
   });
-
-  var loggedIn = false;
-  var canceled = false;
 
   var usernameFld = new forma.TextField({ name: 'username', label: 'Username', required: true });
   var passwordFld = new forma.TextField({ name: 'password', label: 'Password', required: true, hidden: true });
@@ -15,10 +19,12 @@ QUnit.test( "basic form view", function( assert ) {
     icon: 'user',
     fields: [ usernameFld, passwordFld ],
     actions: [
-      new forma.Action({ label: 'Login', type: 'primary', icon: 'check', action: function() {
+      new forma.Action({ label: 'Login', type: 'primary', icon: 'check', action: function(evt) {
+        evt.preventDefault();
         loggedIn = true;
       }}),
-      new forma.Action({ label: 'Cancel', icon: 'times', action: function() {
+      new forma.Action({ label: 'Cancel', icon: 'times', action: function(evt) {
+        evt.preventDefault();
         canceled = true;
       }}),
     ]
@@ -26,7 +32,7 @@ QUnit.test( "basic form view", function( assert ) {
 
   var formView = new forma.FormView({
     form: form,
-    model: model,
+    model: model
   });
 
   assert.ok(formView, 'form view defined');
@@ -53,6 +59,9 @@ QUnit.test( "basic form view", function( assert ) {
 
   // testing actions
 
+  var loggedIn = false;
+  var canceled = false;
+
   assert.ok( ! loggedIn );
   assert.ok( ! canceled );
 
@@ -75,5 +84,4 @@ QUnit.test( "basic form view", function( assert ) {
 
   var newModel = formView.model;
   assert.equal(newModel.get('username'), 'new_username');
-
 });
