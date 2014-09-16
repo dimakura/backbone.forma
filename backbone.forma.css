@@ -33,18 +33,18 @@
   font-size: 14px;
   font-weight: bold;
 }
-.forma-form .forma-body {
+.forma-form .form-body {
   border: 1px solid #d8d8d8;
 }
-.forma-form .forma-body form {
+.forma-form .form-body .form-fields {
   padding: 18px 12px 3px 12px;
 }
-.forma-form .forma-body .forma-actions {
+.forma-form .form-body .form-actions {
   padding: 0 12px 12px 12px;
 }
-.forma-form .forma-body .forma-actions .forma-action {
+.forma-form .form-body .form-actions .forma-action {
   margin-right: 4px;
 }
-.forma-form .forma-body .forma-actions .forma-action i.fa {
+.forma-form .form-body .form-actions .forma-action i.fa {
   margin-right: 4px;
 }

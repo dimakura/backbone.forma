@@ -65,8 +65,7 @@
             }, children)) : void 0;
         }, generateFieldsTag = function() {
             var fields = this.form.fields;
-            return fields ? new exports.html.Tag("form", {
-                role: "form",
+            return fields ? new exports.html.Tag("div", {
                 "class": "form-fields"
             }, fields.map(function(field) {
                 return field.generateFieldTag();
@@ -77,12 +76,13 @@
                     return action.generateActionButtonTag();
                 });
                 return new exports.html.Tag("div", {
-                    "class": "forma-actions"
+                    "class": "form-actions"
                 }, children);
             }
         }, generateBodyTag = function() {
-            return new exports.html.Tag("div", {
-                "class": "forma-body"
+            return new exports.html.Tag("form", {
+                role: "form",
+                "class": "form-body"
             }, [ generateFieldsTag.apply(this), generateActionsTag.apply(this) ]);
         }, Engine = function() {};
         return Engine.prototype.generateFormTag = function(form) {

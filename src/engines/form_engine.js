@@ -30,7 +30,7 @@ exports.DefaultFormEngine = (function() {
       , children = [];
 
     if ( fields ) {
-      return new exports.html.Tag('form', { role: 'form', class: 'form-fields' }, fields.map(function(field) {
+      return new exports.html.Tag('div', { class: 'form-fields' }, fields.map(function(field) {
         return field.generateFieldTag();
       }));
     }
@@ -39,12 +39,12 @@ exports.DefaultFormEngine = (function() {
   var generateActionsTag = function() {
     if ( this.form.actions ) {
       var children = this.form.actions.map(function(action) { return action.generateActionButtonTag(); });
-      return new exports.html.Tag('div', { class: 'forma-actions' }, children);
+      return new exports.html.Tag('div', { class: 'form-actions' }, children);
     }
   };
 
   var generateBodyTag = function() {
-    return new exports.html.Tag('div', { class: 'forma-body' }, [
+    return new exports.html.Tag('form', { role: 'form', class: 'form-body' }, [
       generateFieldsTag.apply(this),
       generateActionsTag.apply(this),
     ]);

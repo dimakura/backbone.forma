@@ -46,6 +46,11 @@ QUnit.test( "basic form view", function( assert ) {
   assert.ok($password);
   assert.equal($password.val(), 'secret');
 
+  // buttons should be inside form tag
+
+  var $buttons = $('form button');
+  assert.equal($buttons.length, 2);
+
   // testing actions
 
   assert.ok( ! loggedIn );
