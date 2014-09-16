@@ -5,7 +5,9 @@ QUnit.test( "default text field engine", function( assert ) {
   var field = new forma.TextField({ name: 'username', label: 'Username' });
   var html = engine.generateFieldTag(field).toHtml();
 
-  assert.ok(html.indexOf('<div class="forma-field form-group">') !== -1);
+console.log(html);
+
+  assert.ok(html.indexOf('<div class="forma-field form-group <%if(_errors.username){%>has-error<%}%>">') !== -1);
   assert.ok(html.indexOf('<label for="'+field.id+'">') !== -1);
   assert.ok(html.indexOf('Username') !== -1);
   assert.ok(html.indexOf('<input id="'+field.id+'" name="username" type="text" value="<%-username%>" class="form-control"></input>') !== -1);

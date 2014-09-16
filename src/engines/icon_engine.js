@@ -1,6 +1,4 @@
-/**
- * Icon engine can be overriden in `forma.iconEngine`.
- */
+
 exports.DefaultIconEngine = {
   generateIconTag: function(name, opts) {
     var classNames = ['fa', 'fa-' + name];

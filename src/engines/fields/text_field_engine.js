@@ -1,6 +1,4 @@
-/**
- * Form engine can be overriden in `forma.FormEngine`, it should be accessible via `new forma.FormEngine()`.
- */
+
 exports.DefaultTextFieldEngine = (function() {
 
   var generateLabelTag = function() {
@@ -24,20 +22,32 @@ exports.DefaultTextFieldEngine = (function() {
     });
   };
 
+  var generateErrorTemplate = function() {
+    return [
+      '<%if(_errors && _errors.'+this.field.name+'){%>',
+      '<div class="text-danger"><%= _errors.'+this.field.name+' %></div>',
+      '<%}%>'
+    ].join('');
+  };
+
   var Engine = function() {
     /* nothing here */
   };
 
-  Engine.prototype.generateFieldTag = function(field) {
+  Engine.prototype.generateFieldTag = function(field, opts) {
+    var errors = opts && opts.errors;
     this.field = field;
     this.iconEngine = exports.iconEngine;
 
     var children = [
       generateLabelTag.apply(this),
       generateInputField.apply(this),
+      generateErrorTemplate.apply(this)
     ];
 
-    return new exports.html.Tag('div', { class: ['forma-field', 'form-group'] }, children);
+    var classNameTemplate = '<%if(_errors.'+this.field.name+'){%>has-error<%}%>';
+
+    return new exports.html.Tag('div', { class: ['forma-field', 'form-group', classNameTemplate] }, children);
   };
 
   Engine.registerOnChangeEvent = function(field, view, callback) {

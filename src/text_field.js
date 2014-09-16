@@ -2,7 +2,6 @@ exports.TextField = (function() {
   var counter = 0;
 
   var TextField = function(options) {
- 
     if (typeof options === 'object') {
       _.extend(this, options);
     } else if (typeof options === 'string') {
@@ -10,12 +9,11 @@ exports.TextField = (function() {
     }
 
     if ( !this.id ) { this.id = exports.utils.nextId(); }
-
   };
 
-  TextField.prototype.generateFieldTag = function() {
-    var engine = new forma.TextFieldEngine();
-    return engine.generateFieldTag(this);
+  TextField.prototype.generateFieldTag = function(opts) {
+    var engine = new exports.TextFieldEngine();
+    return engine.generateFieldTag(this, opts);
   };
 
   TextField.prototype.registerOnChangeEvent = function(view) {
@@ -26,5 +24,4 @@ exports.TextField = (function() {
   };
 
   return TextField;
-
 })();

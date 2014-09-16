@@ -8,7 +8,10 @@ QUnit.test( "basic form view", function( assert ) {
 
   var model = new User({
     username: 'dimitri',
-    password: 'secret'
+    password: 'secret',
+    _errors: {
+      username: 'illegal username'
+    }
   });
 
   var usernameFld = new forma.TextField({ name: 'username', label: 'Username', required: true });
@@ -32,7 +35,8 @@ QUnit.test( "basic form view", function( assert ) {
 
   var formView = new forma.FormView({
     form: form,
-    model: model
+    model: model,
+
   });
 
   assert.ok(formView, 'form view defined');

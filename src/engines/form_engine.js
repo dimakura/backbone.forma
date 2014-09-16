@@ -1,6 +1,4 @@
-/**
- * Form engine can be overriden in `forma.FormEngine`, it should be accessible via `new forma.FormEngine()`.
- */
+
 exports.DefaultFormEngine = (function() {
 
   var generateTitleTag = function() {
@@ -26,12 +24,13 @@ exports.DefaultFormEngine = (function() {
   };
 
   var generateFieldsTag = function() {
-    var fields = this.form.fields
-      , children = [];
+    var self = this;
+    var fields = this.form.fields;
 
     if ( fields ) {
       return new exports.html.Tag('div', { class: 'form-fields' }, fields.map(function(field) {
-        return field.generateFieldTag();
+        var fieldTag = field.generateFieldTag();
+        return fieldTag;
       }));
     }
   };

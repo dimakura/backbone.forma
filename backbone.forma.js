@@ -41,12 +41,15 @@
                 value: "<%-" + this.field.name + "%>",
                 "class": "form-control"
             });
+        }, generateErrorTemplate = function() {
+            return [ "<%if(_errors && _errors." + this.field.name + "){%>", '<div class="text-danger"><%= _errors.' + this.field.name + " %></div>", "<%}%>" ].join("");
         }, Engine = function() {};
-        return Engine.prototype.generateFieldTag = function(field) {
+        return Engine.prototype.generateFieldTag = function(field, opts) {
+            opts && opts.errors;
             this.field = field, this.iconEngine = exports.iconEngine;
-            var children = [ generateLabelTag.apply(this), generateInputField.apply(this) ];
+            var children = [ generateLabelTag.apply(this), generateInputField.apply(this), generateErrorTemplate.apply(this) ], classNameTemplate = "<%if(_errors." + this.field.name + "){%>has-error<%}%>";
             return new exports.html.Tag("div", {
-                "class": [ "forma-field", "form-group" ]
+                "class": [ "forma-field", "form-group", classNameTemplate ]
             }, children);
         }, Engine.registerOnChangeEvent = function(field, view, callback) {
             view.events["change #" + field.id] = function() {
@@ -68,7 +71,8 @@
             return fields ? new exports.html.Tag("div", {
                 "class": "form-fields"
             }, fields.map(function(field) {
-                return field.generateFieldTag();
+                var fieldTag = field.generateFieldTag();
+                return fieldTag;
             })) : void 0;
         }, generateActionsTag = function() {
             if (this.form.actions) {
@@ -141,9 +145,9 @@
             "object" == typeof options ? _.extend(this, options) : "string" == typeof options && (this.name = options), 
             this.id || (this.id = exports.utils.nextId());
         };
-        return TextField.prototype.generateFieldTag = function() {
-            var engine = new forma.TextFieldEngine();
-            return engine.generateFieldTag(this);
+        return TextField.prototype.generateFieldTag = function(opts) {
+            var engine = new exports.TextFieldEngine();
+            return engine.generateFieldTag(this, opts);
         }, TextField.prototype.registerOnChangeEvent = function(view) {
             var self = this;
             exports.TextFieldEngine.registerOnChangeEvent(this, view, function(value) {
