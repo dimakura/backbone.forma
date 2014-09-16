@@ -42,12 +42,12 @@
                 "class": "form-control"
             });
         }, generateErrorTemplate = function() {
-            return [ "<%if(_errors && _errors." + this.field.name + "){%>", '<div class="text-danger"><%= _errors.' + this.field.name + " %></div>", "<%}%>" ].join("");
+            return [ '<%if(typeof _errors !== "undefined" && _errors && _errors.' + this.field.name + ") { %>", '<div class="text-danger"><%= _errors.' + this.field.name + " %></div>", "<%}%>" ].join("");
         }, Engine = function() {};
         return Engine.prototype.generateFieldTag = function(field, opts) {
             opts && opts.errors;
             this.field = field, this.iconEngine = exports.iconEngine;
-            var children = [ generateLabelTag.apply(this), generateInputField.apply(this), generateErrorTemplate.apply(this) ], classNameTemplate = "<%if(_errors." + this.field.name + "){%>has-error<%}%>";
+            var children = [ generateLabelTag.apply(this), generateInputField.apply(this), generateErrorTemplate.apply(this) ], classNameTemplate = '<%if(typeof _errors !== "undefined" && _errors && _errors.' + this.field.name + "){%>has-error<%}%>";
             return new exports.html.Tag("div", {
                 "class": [ "forma-field", "form-group", classNameTemplate ]
             }, children);

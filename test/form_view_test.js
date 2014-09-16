@@ -9,9 +9,9 @@ QUnit.test( "basic form view", function( assert ) {
   var model = new User({
     username: 'dimitri',
     password: 'secret',
-    _errors: {
-      username: 'illegal username'
-    }
+    // _errors: {
+    //   username: 'illegal username'
+    // }
   });
 
   var usernameFld = new forma.TextField({ name: 'username', label: 'Username', required: true });

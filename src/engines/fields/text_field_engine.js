@@ -24,7 +24,7 @@ exports.DefaultTextFieldEngine = (function() {
 
   var generateErrorTemplate = function() {
     return [
-      '<%if(_errors && _errors.'+this.field.name+'){%>',
+      '<%if(typeof _errors !== "undefined" && _errors && _errors.' + this.field.name + ') { %>',
       '<div class="text-danger"><%= _errors.'+this.field.name+' %></div>',
       '<%}%>'
     ].join('');
@@ -45,7 +45,7 @@ exports.DefaultTextFieldEngine = (function() {
       generateErrorTemplate.apply(this)
     ];
 
-    var classNameTemplate = '<%if(_errors.'+this.field.name+'){%>has-error<%}%>';
+    var classNameTemplate = '<%if(typeof _errors !== "undefined" && _errors && _errors.'+this.field.name+'){%>has-error<%}%>';
 
     return new exports.html.Tag('div', { class: ['forma-field', 'form-group', classNameTemplate] }, children);
   };
