@@ -36,6 +36,15 @@
 .forma-form .form-body {
   border: 1px solid #d8d8d8;
 }
+.forma-form .form-body .alert.alert-danger {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border-width: 0;
+  border-bottom-width: 2px;
+  padding: 8px;
+  margin: 8px 12px 0 12px;
+}
 .forma-form .form-body .form-fields {
   padding: 18px 12px 3px 12px;
 }
