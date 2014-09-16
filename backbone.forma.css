@@ -39,6 +39,13 @@
 .forma-form .form-body .form-fields {
   padding: 18px 12px 3px 12px;
 }
+.forma-form .form-body .has-error input {
+  color: #a94442;
+}
+.forma-form .form-body .has-error .text-danger {
+  font-size: 85%;
+  padding: 2px 0 0 3px;
+}
 .forma-form .form-body .form-actions {
   padding: 0 12px 12px 12px;
 }
